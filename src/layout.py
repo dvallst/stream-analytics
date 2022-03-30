@@ -3,7 +3,8 @@ from dash import dcc, html
 
 def get_layout():
     return html.Div([
-        html.H4('TERRA Satellite Live Feed'),
+        html.H6('TERRA Satellite Live Feed'),
+        html.Div(id='total'),
         html.Table([
             html.Thead(
                 html.Tr([
