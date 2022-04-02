@@ -49,6 +49,6 @@ def get_layout():
         dcc.Graph(id='map'),
         dcc.Interval(
             id='interval-component',
-            interval=3000,  # in milliseconds
+            interval=5000,  # in milliseconds
         )
     ])

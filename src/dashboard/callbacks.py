@@ -1,10 +1,10 @@
 import json
 import plotly.graph_objects as go
 import requests
-import time
 
 from dash import html
 from dash.dependencies import Input, Output
+from kafka import KafkaConsumer
 
 
 def register_callbacks(app):
@@ -13,15 +13,18 @@ def register_callbacks(app):
         Input('interval-component', 'n_intervals')
     )
     def update_metrics(n):
-        resp = requests.get('https://opensky-network.org/api/states/all?lamin=35&lomin=-10&lamax=70&lomax=60')
-        data = json.loads(resp.text)
-        print(time.strftime('%H:%M:%S', time.localtime(data.get('time'))))
+        consumer = KafkaConsumer('flights', value_deserializer=lambda v: json.loads(v.decode('utf-8')))
+        for message in consumer:
+            states = message.value
+            break
+        consumer.close()
+        # print(time.strftime('%H:%M:%S', time.localtime(data.get('time'))))
         return [
-            html.Tr([html.Td(c) for c in data['states'][0:9][0]]),
-            html.Tr([html.Td(c) for c in data['states'][0:9][1]]),
-            html.Tr([html.Td(c) for c in data['states'][0:9][3]]),
-            html.Tr([html.Td(c) for c in data['states'][0:9][4]]),
-            html.Tr([html.Td(c) for c in data['states'][0:9][5]]),
+            html.Tr([html.Td(c) for c in states[0]]),
+            html.Tr([html.Td(c) for c in states[1]]),
+            html.Tr([html.Td(c) for c in states[3]]),
+            html.Tr([html.Td(c) for c in states[4]]),
+            html.Tr([html.Td(c) for c in states[5]]),
         ]
 
     @app.callback(

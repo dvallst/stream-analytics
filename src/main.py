@@ -1,7 +1,7 @@
 import dash
 
-from src.callbacks import register_callbacks
-from src.layout import get_layout
+from src.dashboard.callbacks import register_callbacks
+from src.dashboard.layout import get_layout
 
 
 app = dash.Dash(__name__, external_stylesheets=['https://codepen.io/chriddyp/pen/bWLwgP.css'])
