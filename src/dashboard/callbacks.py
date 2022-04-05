@@ -1,10 +1,10 @@
 import json
 import plotly.graph_objects as go
 import requests
-
 from dash import html
 from dash.dependencies import Input, Output
-from kafka import KafkaConsumer
+
+from src.messaging.consumer import consume_flights
 
 
 def register_callbacks(app):
@@ -13,18 +13,14 @@ def register_callbacks(app):
         Input('interval-component', 'n_intervals')
     )
     def update_metrics(n):
-        consumer = KafkaConsumer('flights', value_deserializer=lambda v: json.loads(v.decode('utf-8')))
-        for message in consumer:
-            states = message.value
-            break
-        consumer.close()
+        flights = consume_flights()
         # print(time.strftime('%H:%M:%S', time.localtime(data.get('time'))))
         return [
-            html.Tr([html.Td(c) for c in states[0]]),
-            html.Tr([html.Td(c) for c in states[1]]),
-            html.Tr([html.Td(c) for c in states[3]]),
-            html.Tr([html.Td(c) for c in states[4]]),
-            html.Tr([html.Td(c) for c in states[5]]),
+            html.Tr([html.Td(c) for c in flights[0]]),
+            html.Tr([html.Td(c) for c in flights[1]]),
+            html.Tr([html.Td(c) for c in flights[3]]),
+            html.Tr([html.Td(c) for c in flights[4]]),
+            html.Tr([html.Td(c) for c in flights[5]]),
         ]
 
     @app.callback(
