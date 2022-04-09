@@ -1,11 +1,15 @@
 import json
+import pandas as pd
 import plotly.graph_objects as go
 import requests
 from dash import html
 from dash.dependencies import Input, Output
+from sqlalchemy import create_engine
 
 from src.messaging.consumer import consume_flights
 
+
+engine = create_engine("postgresql://postgres:admin@localhost:5432/stream_analytics")
 
 def register_callbacks(app):
     @app.callback(
@@ -14,6 +18,30 @@ def register_callbacks(app):
     )
     def update_metrics(n):
         flights = consume_flights()
+        df = pd.DataFrame(flights)
+        cols = [
+            'ftime',
+            'icao24',
+            'callsign',
+            'origin_country',
+            'time_position',
+            'last_contact',
+            'longitude',
+            'latitude',
+            'geometric_altitude',
+            'on_ground',
+            'velocity',
+            'heading',
+            'vertical_rate',
+            'sensors',
+            'barometric_altitude',
+            'squawk',
+            'spi',
+            'position_source',
+        ]
+        df\
+            .rename(columns=dict(zip(df.columns, cols)))\
+            .to_sql(con=engine, schema='stream', name='flight_state', if_exists='append', index=False)
         # print(time.strftime('%H:%M:%S', time.localtime(data.get('time'))))
         return [
             html.Tr([html.Td(c) for c in flights[0]]),
