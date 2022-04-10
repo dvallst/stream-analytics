@@ -11,6 +11,7 @@ from src.messaging.consumer import consume_flights
 
 engine = create_engine("postgresql://postgres:admin@localhost:5432/stream_analytics")
 
+
 def register_callbacks(app):
     @app.callback(
         Output('live-update-text', 'children'),
@@ -20,7 +21,6 @@ def register_callbacks(app):
         flights = consume_flights()
         df = pd.DataFrame(flights)
         cols = [
-            'ftime',
             'icao24',
             'callsign',
             'origin_country',
@@ -28,27 +28,38 @@ def register_callbacks(app):
             'last_contact',
             'longitude',
             'latitude',
-            'geometric_altitude',
+            'baro_altitude',
             'on_ground',
             'velocity',
-            'heading',
+            'true_track',
             'vertical_rate',
             'sensors',
-            'barometric_altitude',
+            'geo_altitude',
             'squawk',
+            'unknown',
             'spi',
             'position_source',
         ]
-        df\
-            .rename(columns=dict(zip(df.columns, cols)))\
-            .to_sql(con=engine, schema='stream', name='flight_state', if_exists='append', index=False)
-        # print(time.strftime('%H:%M:%S', time.localtime(data.get('time'))))
+        df = df.rename(columns=dict(zip(df.columns, cols)))
+        df.to_sql(name='flight', con=engine, schema='sky', if_exists='append', index=False)
+        df = df.drop(columns=[
+            'icao24',
+            'time_position',
+            'longitude',
+            'latitude',
+            'sensors',
+            'squawk',
+            'unknown',
+            'spi',
+            'position_source'
+        ])
+        # print(time.strftime('%H:%M:%S', time.localtime(df['last_contact'])))
         return [
-            html.Tr([html.Td(c) for c in flights[0]]),
-            html.Tr([html.Td(c) for c in flights[1]]),
-            html.Tr([html.Td(c) for c in flights[3]]),
-            html.Tr([html.Td(c) for c in flights[4]]),
-            html.Tr([html.Td(c) for c in flights[5]]),
+            html.Tr([html.Td(c) for c in df.iloc[0, :]]),
+            html.Tr([html.Td(c) for c in df.iloc[1, :]]),
+            html.Tr([html.Td(c) for c in df.iloc[3, :]]),
+            html.Tr([html.Td(c) for c in df.iloc[4, :]]),
+            html.Tr([html.Td(c) for c in df.iloc[5, :]]),
         ]
 
     @app.callback(
