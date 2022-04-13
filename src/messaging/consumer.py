@@ -3,6 +3,7 @@ import json
 from kafka import KafkaConsumer
 
 from src.messaging.constants import Const
+from src.database.postgres import save_flights
 
 
 def consume_flights():
@@ -16,4 +17,4 @@ def consume_flights():
         break
     consumer.close()
 
-    return flight_states
+    return save_flights(flight_states)
