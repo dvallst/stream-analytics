@@ -8,7 +8,7 @@ CREATE TABLE sky.flight (
     latitude        DECIMAL(6,4),
     baro_altitude   DECIMAL(7,2),
     on_ground       BOOLEAN,
-    velocity        DECIMAL(5,2),
+    velocity        DECIMAL(6,2),
     true_track      DECIMAL(5,2),
     vertical_rate   DECIMAL(5,2),
     sensors         BIGINT,

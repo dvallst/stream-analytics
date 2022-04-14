@@ -4,12 +4,23 @@ from dash import dcc, html
 def get_layout():
     return html.Div([
         html.Div([
-            html.Div(html.H6('TERRA Satellite Live Feed'), className='five columns'),
-            html.Div(id='total', className='seven columns'),
-            dcc.Interval(
-                id='interval-component',
-                interval=5000,  # in milliseconds
-            )
+            html.Div(html.H4('Streaming Analytics of Flights over Europe'), className='five columns'),
+            html.Div([
+                html.Table(
+                    html.Tr([
+                        html.Td('Total aircraft'),
+                        html.Td(id='total'),
+                        html.Td('Flying'),
+                        html.Td(id='flying'),
+                        html.Td('On ground'),
+                        html.Td(id='on_ground'),
+                    ])
+                ),
+                dcc.Interval(
+                    id='interval-component',
+                    interval=5000,  # in milliseconds
+                )
+            ], className='seven columns')
         ], className='row'),
         html.Div([
             html.Div(dcc.Graph(id='map'), className='five columns'),
@@ -25,7 +36,7 @@ def get_layout():
                                 'Last contact',
                                 title='Unix timestamp (seconds) for the last update in general. This field is updated '
                                       'for any new, valid message received from the transponder.'),
-                            html.Th('Altitude', title='Barometric altitude in meters. Can be null.'),
+                            html.Th('Barometric altitude', title='Barometric altitude in meters. Can be null.'),
                             html.Th(
                                 'On ground',
                                 title='Boolean value which indicates if the position was retrieved from a surface '
