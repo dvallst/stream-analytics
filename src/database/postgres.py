@@ -1,3 +1,4 @@
+import logging
 import pandas as pd
 
 from sqlalchemy import create_engine
@@ -32,5 +33,8 @@ def save_flights(flights):
 
     engine = create_engine(f"postgresql://{Config.USER}:{Config.SECRET}@{Config.HOST}:{Config.PORT}/{Config.DB}")
     df.to_sql(name='flight', con=engine, schema='sky', if_exists='append', index=False)
+
+    logger = logging.getLogger(__name__)
+    logger.info(str(len(df.index)) + ' flights saved to database')
 
     return df

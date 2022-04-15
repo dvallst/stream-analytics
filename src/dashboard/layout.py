@@ -18,7 +18,7 @@ def get_layout():
                 ),
                 dcc.Interval(
                     id='interval-component',
-                    interval=5000,  # in milliseconds
+                    interval=15000,  # in milliseconds
                 )
             ], className='seven columns')
         ], className='row'),

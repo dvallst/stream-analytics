@@ -1,9 +1,15 @@
-import plotly.graph_objects as go
+import logging.config
+import os
 
 from dash import html
 from dash.dependencies import Input, Output
 
 from src.messaging.consumer import consume_flights
+from src.dashboard.plots import create_scatter_geo
+
+
+logging.config.fileConfig(os.path.join(os.path.dirname(__file__), '..', '..', 'conf', 'logging.cfg'))
+logger = logging.getLogger(__name__)
 
 
 def register_callbacks(app):
@@ -16,22 +22,11 @@ def register_callbacks(app):
         Input('interval-component', 'n_intervals')
     )
     def update_metrics(n):
+        logger.info('Updating metrics...')
+
         df = consume_flights()
 
-        fig = go.Figure(
-            data=go.Scattergeo(
-                lon=df[df.on_ground==False].longitude,
-                lat=df[df.on_ground==False].latitude,
-                mode='markers',
-                text='a'
-            )
-        )
-        fig.update_layout(
-            title='Real-time aircraft flying over Europe',
-            geo_scope='europe',
-            height=750,
-            margin=dict(r=0, t=25, l=0, b=0),
-        )
+        fig = create_scatter_geo(df[df.on_ground==False].longitude, df[df.on_ground==False].latitude)
 
         df = df.drop(columns=[
             'icao24',
