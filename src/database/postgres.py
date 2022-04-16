@@ -35,6 +35,6 @@ def save_flights(flights):
     df.to_sql(name='flight', con=engine, schema='sky', if_exists='append', index=False)
 
     logger = logging.getLogger(__name__)
-    logger.info(str(len(df.index)) + ' flights saved to database')
+    logger.info(str(len(df.index)) + ' flights saved to Postgres')
 
     return df

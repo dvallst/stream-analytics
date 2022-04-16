@@ -26,14 +26,21 @@ def register_callbacks(app):
 
         df = consume_flights()
 
-        fig = create_scatter_geo(df[df.on_ground==False].longitude, df[df.on_ground==False].latitude)
+        on_ground = df[df.on_ground]
+        flying = df[df.on_ground == False]
 
-        df = df.drop(columns=[
+        fig = create_scatter_geo(flying.latitude, flying.longitude)
+
+        flying_sample = flying.sample(5)
+        flying_sample = flying_sample.drop(columns=[
             'icao24',
             'time_position',
+            'last_contact',
             'longitude',
             'latitude',
+            'on_ground',
             'sensors',
+            'geo_altitude',
             'squawk',
             'unknown',
             'spi',
@@ -43,12 +50,6 @@ def register_callbacks(app):
         return \
             fig, \
             len(df.index), \
-            len(df[df.on_ground==False].index), \
-            len(df[df.on_ground].index), \
-            [
-                html.Tr([html.Td(c) for c in df.iloc[0, :]]),
-                html.Tr([html.Td(c) for c in df.iloc[1, :]]),
-                html.Tr([html.Td(c) for c in df.iloc[3, :]]),
-                html.Tr([html.Td(c) for c in df.iloc[4, :]]),
-                html.Tr([html.Td(c) for c in df.iloc[5, :]]),
-            ]
+            len(flying.index), \
+            len(on_ground.index), \
+            [html.Tr([html.Td(col) for col in flying_sample.iloc[idx, :]]) for idx in range(5)]

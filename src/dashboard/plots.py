@@ -1,21 +1,21 @@
 import plotly.graph_objects as go
 
 
-def create_scatter_geo(longitudes, latitudes):
+def create_scatter_geo(latitudes, longitudes):
     fig = go.Figure(
         data=go.Scattergeo(
-            lon=longitudes,
             lat=latitudes,
+            lon=longitudes,
             mode='markers',
-            text='a'
+            text='Aircraft flying'
         )
     )
 
     fig.update_layout(
-        title='Real-time aircraft flying over Europe',
         geo_scope='europe',
-        height=750,
-        margin=dict(r=0, t=25, l=0, b=0),
+        width=900,
+        height=800,
+        margin=dict(r=0, t=0, l=0, b=0),
     )
 
     return fig
