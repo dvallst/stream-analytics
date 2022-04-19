@@ -1,8 +1,6 @@
 import logging
 import pandas as pd
 
-from sqlalchemy import create_engine
-
 from src.database.config import Config
 
 
@@ -31,8 +29,7 @@ def save_flights(flights):
     ]
     df = df.rename(columns=dict(zip(df.columns, cols)))
 
-    engine = create_engine(f"postgresql://{Config.USER}:{Config.SECRET}@{Config.HOST}:{Config.PORT}/{Config.DB}")
-    df.to_sql(name='flight', con=engine, schema='sky', if_exists='append', index=False)
+    df.to_sql(name=Config.TABLE, con=Config.create_engine(), schema=Config.SCHEMA, if_exists='append', index=False)
 
     logger = logging.getLogger(__name__)
     logger.info(str(len(df.index)) + ' flights saved to Postgres')

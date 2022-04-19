@@ -12,11 +12,15 @@ from src.messaging.config import Config
 logging.config.fileConfig(os.path.join(os.path.dirname(__file__), '..', '..', 'conf', 'logging.cfg'))
 logger = logging.getLogger(__name__)
 
-# Create Kafka client to publish messages to Kafka cluster
-producer = KafkaProducer(
-    bootstrap_servers=f"{Config.HOST}:{Config.PORT}",
-    value_serializer=lambda v: json.dumps(v).encode('utf-8')
-)
+try:
+    # Create Kafka client to publish messages to Kafka cluster
+    producer = KafkaProducer(
+        bootstrap_servers=Config.get_broker(),
+        value_serializer=lambda v: json.dumps(v).encode('utf-8')
+    )
+except Exception as ex:
+    logger.error(f"Is Kafka broker up & running on {Config.get_broker()}?")
+    raise ex
 
 # Kafka server must be up & running
 if __name__ == '__main__':
@@ -25,6 +29,7 @@ if __name__ == '__main__':
         if flights:
             producer.send(topic=Config.TOPIC, value=flights)
             producer.flush()
-            logger.info('Flights published to Kafka')
+            logger.info('Flights published to Kafka topic: ' + Config.TOPIC)
 
-        time.sleep(5)
+        # OpenSky anonymous users can only retrieve data with a time resolution of 10 seconds
+        time.sleep(10)
