@@ -5,6 +5,12 @@ from src.database.config import Config
 
 
 def save_flights(flights):
+    """
+    Save flight states to database
+
+    :param flights: List of flight states
+    :return: Pandas DataFrame: Flight states
+    """
     df = pd.DataFrame(flights)
 
     cols = [
@@ -32,6 +38,6 @@ def save_flights(flights):
     df.to_sql(name=Config.TABLE, con=Config.create_engine(), schema=Config.SCHEMA, if_exists='append', index=False)
 
     logger = logging.getLogger(__name__)
-    logger.info(str(len(df.index)) + ' flights saved to Postgres')
+    logger.info('Flights saved to Postgres: ' + str(len(df.index)))
 
     return df
