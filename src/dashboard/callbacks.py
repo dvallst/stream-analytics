@@ -17,7 +17,9 @@ def register_callbacks(app):
         Output('live-update-map', 'figure'),
         Output('live-update-total', 'children'),
         Output('live-update-flying', 'children'),
+        Output('live-update-flying-perc', 'children'),
         Output('live-update-on-ground', 'children'),
+        Output('live-update-on-ground-perc', 'children'),
         Output('live-update-flying-table', 'children'),
         Output('live-update-on-ground-table', 'children'),
         Input('interval-component', 'n_intervals')
@@ -32,7 +34,7 @@ def register_callbacks(app):
 
         fig = create_scatter_geo(flying.latitude, flying.longitude)
 
-        flying_sample = flying.sample(4).drop(columns=[
+        flying_sample = flying.sample(5).drop(columns=[
             'icao24',
             'time_position',
             'last_contact',
@@ -47,7 +49,7 @@ def register_callbacks(app):
             'position_source',
         ])
 
-        on_ground_sample = on_ground.sample(4).drop(columns=[
+        on_ground_sample = on_ground.sample(5).drop(columns=[
             'icao24',
             'time_position',
             'last_contact',
@@ -66,6 +68,8 @@ def register_callbacks(app):
             fig, \
             len(df.index), \
             len(flying.index), \
+            f"{round(len(flying.index) / len(df.index) * 100)}%", \
             len(on_ground.index), \
-            [html.Tr([html.Td(col) for col in flying_sample.iloc[idx, :]]) for idx in range(4)], \
-            [html.Tr([html.Td(col) for col in on_ground_sample.iloc[idx, :]]) for idx in range(4)]
+            f"{round(len(on_ground.index) / len(df.index) * 100)}%", \
+            [html.Tr([html.Td(col) for col in flying_sample.iloc[idx, :]]) for idx in range(5)], \
+            [html.Tr([html.Td(col) for col in on_ground_sample.iloc[idx, :]]) for idx in range(5)]

@@ -1,31 +1,42 @@
+import dash_bootstrap_components as dbc
+
 from dash import dcc, html
 
 
 def get_layout():
-    return html.Div([
-        html.Div([
-            html.Div(html.H4('Streaming Analytics of Flights over Europe'), className='six columns'),
-            html.Div([
-                html.Table(
-                    html.Tr([
-                        html.Td('Total aircraft'),
-                        html.Td(id='live-update-total'),
-                        html.Td('Flying'),
-                        html.Td(id='live-update-flying'),
-                        html.Td('On ground'),
-                        html.Td(id='live-update-on-ground'),
-                    ])
-                ),
-                dcc.Interval(
-                    id='interval-component',
-                    interval=15000,  # in milliseconds
-                )
-            ], className='six columns')
-        ], className='row'),
-        html.Div([
-            html.Div(dcc.Graph(id='live-update-map'), className='six columns'),
-            html.Div([
-                html.Table([
+    return dbc.Container([
+        dbc.Row([
+            dbc.Col([
+                html.H3('Streaming Analytics of Flights over Europe'),
+                html.H5('Source: The OpenSky Network'),
+            ], width=6),
+            dbc.Col(
+                dbc.Table([
+                    html.Thead(
+                        html.Tr([
+                            html.Th('Total aircraft'),
+                            html.Th('Flying', colSpan=2),
+                            html.Th('On ground', colSpan=2),
+                        ])
+                    ),
+                    html.Tbody(
+                        html.Tr([
+                            html.Td(id='live-update-total'),
+                            html.Td(id='live-update-flying'),
+                            html.Td(id='live-update-flying-perc'),
+                            html.Td(id='live-update-on-ground'),
+                            html.Td(id='live-update-on-ground-perc'),
+                        ])
+                    )
+                ], bordered=True, color='info'),
+                width=3
+            ),
+            dbc.Col(dcc.Interval(id='interval-component', interval=15000))  # in milliseconds
+        ]),
+        dbc.Row([
+            dbc.Col(dcc.Graph(id='live-update-map'), width=6),
+            dbc.Col([
+                dbc.Table([
                     html.Thead([
                         html.Tr(html.Th('Flying aircraft sample', colSpan=8)),
                         html.Tr([
@@ -48,8 +59,8 @@ def get_layout():
                         ])
                     ]),
                     html.Tbody(id='live-update-flying-table')
-                ]),
-                html.Table([
+                ], bordered=True, color='primary', hover=True, striped=True),
+                dbc.Table([
                     html.Thead([
                         html.Tr(html.Th('On-ground aircraft sample', colSpan=8)),
                         html.Tr([
@@ -73,7 +84,7 @@ def get_layout():
                         ])
                     ]),
                     html.Tbody(id='live-update-on-ground-table')
-                ])
-            ], className='six columns'),
-        ], className='row')
-    ])
+                ], bordered=True, color='secondary', hover=True, striped=True)
+            ])
+        ])
+    ], fluid=True)

@@ -1,4 +1,5 @@
 import dash
+import dash_bootstrap_components as dbc
 
 from src.dashboard.callbacks import register_callbacks
 from src.dashboard.layout import get_layout
@@ -6,7 +7,10 @@ from src.dashboard.layout import get_layout
 
 app = dash.Dash(
     __name__,
-    external_stylesheets=['https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css']
+    external_stylesheets=[dbc.themes.BOOTSTRAP],
+    title='Europe flights',
+    update_title='Updating flights...'
+
 )
 app.layout = get_layout()
 register_callbacks(app)
