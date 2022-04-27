@@ -73,3 +73,15 @@ def register_callbacks(app):
             f"{round(len(on_ground.index) / len(df.index) * 100)}%", \
             [html.Tr([html.Td(col) for col in flying_sample.iloc[idx, :]]) for idx in range(5)], \
             [html.Tr([html.Td(col) for col in on_ground_sample.iloc[idx, :]]) for idx in range(5)]
+
+    @app.callback(
+        Output('interval-component', 'disabled'),
+        Input('boolean-switch', 'on')
+    )
+    def disable_update(on):
+        if on:
+            logger.info('Enabling dashboard update')
+            return False
+        if not on:
+            logger.info('Disabling dashboard update')
+            return True

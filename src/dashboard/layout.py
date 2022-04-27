@@ -1,4 +1,5 @@
 import dash_bootstrap_components as dbc
+import dash_daq as daq
 
 from dash import dcc, html
 
@@ -31,7 +32,10 @@ def get_layout():
                 ], bordered=True, color='info'),
                 width=3
             ),
-            dbc.Col(dcc.Interval(id='interval-component', interval=15000))  # in milliseconds
+            dbc.Col([
+                daq.BooleanSwitch(id='boolean-switch', on=True, label='Update flights'),
+                dcc.Interval(id='interval-component', interval=15000)  # in milliseconds
+            ])
         ]),
         dbc.Row([
             dbc.Col(dcc.Graph(id='live-update-map'), width=6),
