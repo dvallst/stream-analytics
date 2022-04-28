@@ -5,6 +5,11 @@ from dash import dcc, html
 
 
 def get_layout():
+    """
+    Get Dash app layout. It describes what the application looks like.
+
+    :return: A Container component
+    """
     return dbc.Container([
         dbc.Row([
             dbc.Col([
@@ -33,12 +38,12 @@ def get_layout():
                 width=3
             ),
             dbc.Col([
-                daq.BooleanSwitch(id='boolean-switch', on=True, label='Update flights'),
+                daq.BooleanSwitch(id='boolean-switch', on=True, label='Live flights'),
                 dcc.Interval(id='interval-component', interval=15000)  # in milliseconds
             ])
         ]),
         dbc.Row([
-            dbc.Col(dcc.Graph(id='live-update-map'), width=6),
+            dbc.Col(dcc.Graph(id='live-update-map', config=dict(displaylogo=False, displayModeBar=True)), width=6),
             dbc.Col([
                 dbc.Table([
                     html.Thead([

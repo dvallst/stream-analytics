@@ -32,7 +32,10 @@ def register_callbacks(app):
         on_ground = df[df.on_ground]
         flying = df[df.on_ground == False]
 
-        fig = create_scatter_geo(flying.latitude, flying.longitude)
+        df['info'] = 'Aircraft ' + df.callsign.str.strip() + ' flying from ' + df.origin_country.str.strip() + \
+                     ' at ' + df.baro_altitude.astype(str).str.strip() + ' meters'
+
+        fig = create_scatter_geo(flying.latitude, flying.longitude, df['info'])
 
         flying_sample = flying.sample(5).drop(columns=[
             'icao24',
@@ -80,8 +83,8 @@ def register_callbacks(app):
     )
     def disable_update(on):
         if on:
-            logger.info('Enabling dashboard update')
+            logger.info('Enabling dashboard update...')
             return False
         if not on:
-            logger.info('Disabling dashboard update')
+            logger.info('Disabling dashboard update...')
             return True

@@ -1,13 +1,20 @@
 import plotly.graph_objects as go
 
 
-def create_scatter_geo(latitudes, longitudes):
+def create_scatter_geo(latitudes, longitudes, flight_info):
+    """
+
+    :param latitudes:
+    :param longitudes:
+    :param flight_info:
+    :return: Figure: Europe map with flights
+    """
     fig = go.Figure(
         data=go.Scattergeo(
             lat=latitudes,
             lon=longitudes,
             mode='markers',
-            text='Aircraft flying'
+            text=flight_info
         )
     )
 
