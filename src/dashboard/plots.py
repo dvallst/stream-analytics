@@ -1,13 +1,14 @@
 import plotly.graph_objects as go
 
 
-def create_scatter_geo(latitudes, longitudes, flight_info):
+def create_geo_map(latitudes, longitudes, flight_info):
     """
+    Create European geographic map provided by latitude/longitude pairs
 
-    :param latitudes:
-    :param longitudes:
-    :param flight_info:
-    :return: Figure: Europe map with flights
+    :param latitudes: Pandas series of latitudes in ellipsoidal coordinates (WGS-84) and decimal degrees
+    :param longitudes: Pandas series of longitudes in ellipsoidal coordinates (WGS-84) and decimal degrees
+    :param flight_info: Pandas series of flight information
+    :return: Figure: European map with flights
     """
     fig = go.Figure(
         data=go.Scattergeo(

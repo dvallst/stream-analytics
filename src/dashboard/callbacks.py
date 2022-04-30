@@ -5,7 +5,7 @@ from dash import html
 from dash.dependencies import Input, Output
 
 from src.messaging.consumer import consume_flights
-from src.dashboard.plots import create_scatter_geo
+from src.dashboard.plots import create_geo_map
 
 
 logging.config.fileConfig(os.path.join(os.path.dirname(__file__), '..', '..', 'conf', 'logging.cfg'))
@@ -32,10 +32,12 @@ def register_callbacks(app):
         on_ground = df[df.on_ground]
         flying = df[df.on_ground == False]
 
-        df['info'] = 'Aircraft ' + df.callsign.str.strip() + ' flying from ' + df.origin_country.str.strip() + \
-                     ' at ' + df.baro_altitude.astype(str).str.strip() + ' meters'
-
-        fig = create_scatter_geo(flying.latitude, flying.longitude, df['info'])
+        fig = create_geo_map(
+            flying.latitude,
+            flying.longitude,
+            'Aircraft ' + flying.callsign.str.strip() + ' flying from ' + flying.origin_country.str.strip() + ' at ' +
+            flying.baro_altitude.astype(str).str.strip() + ' meters'
+        )
 
         flying_sample = flying.sample(5).drop(columns=[
             'icao24',

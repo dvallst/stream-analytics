@@ -18,8 +18,9 @@ def get_flights():
         if response.ok:
             # Deserialize string containing JSON document (response.text) to dictionary, and get list of flight states
             flight_states = json.loads(response.text)['states']
-            logger.info('Flights gotten from OpenSky')
     except Exception as ex:
         logger.warning('Exception getting flights: ' + str(ex))
+
+    logger.info(f"{len(flight_states)} flights gotten from OpenSky")
 
     return flight_states

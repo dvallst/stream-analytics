@@ -28,10 +28,11 @@ def consume_flights():
 
     flight_states = []
     for message in consumer:
+        logger.info(f"Consuming message {message.offset} from Kafka broker {Config.get_broker()}...")
         flight_states = message.value
         break
 
     consumer.close()
-    logger.info('Flights consumed from Kafka topic: ' + Config.TOPIC)
+    logger.info(f"Kafka message consumed with {len(message.value)} flights")
 
     return save_flights(flight_states)
