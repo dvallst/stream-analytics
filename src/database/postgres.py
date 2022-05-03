@@ -35,9 +35,14 @@ def save_flights(flights):
     ]
     df = df.rename(columns=dict(zip(df.columns, cols)))
 
-    df.to_sql(name=Config.TABLE, con=Config.create_engine(), schema=Config.SCHEMA, if_exists='append', index=False)
-
     logger = logging.getLogger(__name__)
+
+    try:
+        df.to_sql(name=Config.TABLE, con=Config.create_engine(), schema=Config.SCHEMA, if_exists='append', index=False)
+    except Exception as ex:
+        logger.error(ex)
+        raise ex
+
     logger.info(f"{len(df.index)} flights saved to Postgres")
 
     return df
