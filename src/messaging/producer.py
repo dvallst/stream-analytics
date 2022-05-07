@@ -29,7 +29,7 @@ if __name__ == '__main__':
         if flights:
             producer.send(topic=Config.TOPIC, value=flights)
             producer.flush()
-            logger.info(f"{len(flights)} flights published to Kafka topic: {Config.TOPIC}")
+            logger.info(f"Kafka message published with {len(flights)} flights")
 
         # OpenSky anonymous users can only retrieve data with a time resolution of 10 seconds
         time.sleep(10)
