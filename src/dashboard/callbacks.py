@@ -24,7 +24,7 @@ def register_callbacks(app):
         Output('live-update-on-ground-table', 'children'),
         Input('interval-component', 'n_intervals')
     )
-    def update_metrics(n):
+    def update_metrics(n_intervals):
         logger.info('Updating dashboard metrics...')
 
         df = consume_flights()
