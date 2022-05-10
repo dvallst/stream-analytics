@@ -20,7 +20,7 @@ def consume_flights():
         consumer = KafkaConsumer(
             Config.TOPIC,
             bootstrap_servers=Config.get_broker(),
-            value_deserializer=lambda v: json.loads(v.decode('utf-8'))
+            value_deserializer=lambda v: json.loads(v.decode("utf-8")),
         )
     except Exception as ex:
         logger.error(f"Is Kafka broker up & running on {Config.get_broker()}?")

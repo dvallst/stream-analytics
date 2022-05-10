@@ -10,18 +10,11 @@ def create_geo_map(latitudes, longitudes, flight_info):
     :param flight_info: Pandas series of flight information
     :return: Figure: European map with flights
     """
-    fig = go.Figure(
-        data=go.Scattergeo(
-            lat=latitudes,
-            lon=longitudes,
-            mode='markers',
-            text=flight_info
-        )
-    )
+    fig = go.Figure(data=go.Scattergeo(lat=latitudes, lon=longitudes, mode="markers", text=flight_info))
 
     fig.update_layout(
-        title='All aircraft flying',
-        geo_scope='europe',
+        title="All aircraft flying",
+        geo_scope="europe",
         width=750,
         height=800,
         margin=dict(r=0, t=25, l=0, b=0),

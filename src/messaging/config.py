@@ -1,7 +1,7 @@
 class Config:
-    HOST = 'localhost'  # Change default server host if required
+    HOST = "localhost"  # Change default server host if required
     PORT = 9092  # Change default server port if required
-    TOPIC = 'flights'  # Topic name
+    TOPIC = "flights"  # Topic name
 
     @staticmethod
     def get_broker():
