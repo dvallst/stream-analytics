@@ -16,10 +16,10 @@ def get_layout():
                 [
                     dbc.Col(
                         [
-                            html.H3("Streaming Analytics of Flights over Europe"),
-                            html.H5("Source: The OpenSky Network"),
+                            html.H4("Streaming Analytics of Flights over Europe"),
+                            html.H6("Source: The OpenSky Network"),
                         ],
-                        width=6,
+                        width=4,
                     ),
                     dbc.Col(
                         dbc.Table(
@@ -29,7 +29,7 @@ def get_layout():
                                         [
                                             html.Th("Total aircraft"),
                                             html.Th("Flying", colSpan=2),
-                                            html.Th("On ground", colSpan=2),
+                                            html.Th("On-ground", colSpan=2),
                                         ]
                                     )
                                 ),
@@ -48,11 +48,13 @@ def get_layout():
                             bordered=True,
                             color="info",
                         ),
-                        width=3,
+                        width=4,
                     ),
                     dbc.Col(
                         [
-                            daq.BooleanSwitch(id="boolean-switch", on=True, label="Live flights"),
+                            html.Center(html.Label("Turn off Live flights mode to interact with the map")),
+                            daq.BooleanSwitch(id="boolean-switch", on=True),
+                            html.Center(html.Label("Hover any label to see an explanation")),
                             dcc.Interval(id="interval-component", interval=15000),  # in milliseconds
                         ]
                     ),
@@ -65,7 +67,52 @@ def get_layout():
                             id="live-update-map",
                             config=dict(displaylogo=False, displayModeBar=True),
                         ),
-                        width=6,
+                        width=5,
+                    ),
+                    dbc.Col(
+                        [
+                            dbc.Table(
+                                [
+                                    html.Thead(
+                                        [
+                                            html.Tr(html.Th("Top countries flying", colSpan=2)),
+                                            html.Tr(
+                                                [
+                                                    html.Th("Origin country"),
+                                                    html.Th("Total aircraft"),
+                                                ]
+                                            ),
+                                        ]
+                                    ),
+                                    html.Tbody(id="live-update-country-flying-table"),
+                                ],
+                                bordered=True,
+                                color="primary",
+                                hover=True,
+                                striped=True,
+                            ),
+                            dbc.Table(
+                                [
+                                    html.Thead(
+                                        [
+                                            html.Tr(html.Th("Top countries on-ground", colSpan=2)),
+                                            html.Tr(
+                                                [
+                                                    html.Th("Origin country"),
+                                                    html.Th("Total aircraft"),
+                                                ]
+                                            ),
+                                        ]
+                                    ),
+                                    html.Tbody(id="live-update-country-on-ground-table"),
+                                ],
+                                bordered=True,
+                                color="secondary",
+                                hover=True,
+                                striped=True,
+                            ),
+                        ],
+                        width=2,
                     ),
                     dbc.Col(
                         [

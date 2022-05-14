@@ -15,7 +15,7 @@ def create_geo_map(latitudes, longitudes, flight_info):
     fig.update_layout(
         title="All aircraft flying",
         geo_scope="europe",
-        width=750,
+        width=600,
         height=800,
         margin=dict(r=0, t=25, l=0, b=0),
     )

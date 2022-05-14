@@ -20,6 +20,8 @@ def register_callbacks(app):
         Output("live-update-flying-perc", "children"),
         Output("live-update-on-ground", "children"),
         Output("live-update-on-ground-perc", "children"),
+        Output("live-update-country-flying-table", "children"),
+        Output("live-update-country-on-ground-table", "children"),
         Output("live-update-flying-table", "children"),
         Output("live-update-on-ground-table", "children"),
         Input("interval-component", "n_intervals"),
@@ -78,6 +80,22 @@ def register_callbacks(app):
             ]
         )
 
+        flying_country = (
+            flying.groupby("origin_country")
+            .size()
+            .reset_index(name="count")
+            .sort_values("count", ascending=False)
+            .head(5)
+        )
+
+        on_ground_country = (
+            on_ground.groupby("origin_country")
+            .size()
+            .reset_index(name="count")
+            .sort_values("count", ascending=False)
+            .head(5)
+        )
+
         return (
             fig,
             len(df.index),
@@ -85,8 +103,10 @@ def register_callbacks(app):
             f"{round(len(flying.index) / len(df.index) * 100)}%",
             len(on_ground.index),
             f"{round(len(on_ground.index) / len(df.index) * 100)}%",
-            [html.Tr([html.Td(col) for col in flying_sample.iloc[idx, :]]) for idx in range(5)],
-            [html.Tr([html.Td(col) for col in on_ground_sample.iloc[idx, :]]) for idx in range(5)],
+            [html.Tr([html.Td(col) for col in flying_country.iloc[idx, :]]) for idx in range(4)],
+            [html.Tr([html.Td(col) for col in on_ground_country.iloc[idx, :]]) for idx in range(4)],
+            [html.Tr([html.Td(col) for col in flying_sample.iloc[idx, :]]) for idx in range(4)],
+            [html.Tr([html.Td(col) for col in on_ground_sample.iloc[idx, :]]) for idx in range(4)],
         )
 
     @app.callback(Output("interval-component", "disabled"), Input("boolean-switch", "on"))
