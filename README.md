@@ -42,6 +42,6 @@ It should be something like:
 `conda activate /Users/dvt/stream-analytics/venv`
 3. Run the following Python script:  
 `python -m src.messaging.producer`
-4Open another terminal, activate the virtual environment (step 2) and run the Python script:
+4. Open another terminal, activate the virtual environment (step 2) and run the Python script:
 `python -m src.main`
-4. Open a web browser and go to http://127.0.0.1:8050
+5. Open a web browser and go to http://127.0.0.1:8050

@@ -31,6 +31,15 @@ def register_callbacks(app):
 
         df = consume_flights()
 
+        df = df.drop(
+            columns=[
+                "icao24",
+                "time_position",
+                "last_contact",
+                "unknown",
+            ]
+        )
+
         on_ground = df[df.on_ground]
         flying = df[df.on_ground == False]
 
@@ -48,16 +57,12 @@ def register_callbacks(app):
 
         flying_sample = flying.sample(5).drop(
             columns=[
-                "icao24",
-                "time_position",
-                "last_contact",
                 "longitude",
                 "latitude",
                 "on_ground",
                 "sensors",
                 "geo_altitude",
                 "squawk",
-                "unknown",
                 "spi",
                 "position_source",
             ]
@@ -65,9 +70,6 @@ def register_callbacks(app):
 
         on_ground_sample = on_ground.sample(5).drop(
             columns=[
-                "icao24",
-                "time_position",
-                "last_contact",
                 "longitude",
                 "latitude",
                 "baro_altitude",
@@ -76,11 +78,10 @@ def register_callbacks(app):
                 "true_track",
                 "vertical_rate",
                 "geo_altitude",
-                "unknown",
             ]
         )
 
-        flying_country = (
+        top_countries_flying = (
             flying.groupby("origin_country")
             .size()
             .reset_index(name="count")
@@ -88,7 +89,7 @@ def register_callbacks(app):
             .head(5)
         )
 
-        on_ground_country = (
+        top_countries_on_ground = (
             on_ground.groupby("origin_country")
             .size()
             .reset_index(name="count")
@@ -103,8 +104,8 @@ def register_callbacks(app):
             f"{round(len(flying.index) / len(df.index) * 100)}%",
             len(on_ground.index),
             f"{round(len(on_ground.index) / len(df.index) * 100)}%",
-            [html.Tr([html.Td(col) for col in flying_country.iloc[idx, :]]) for idx in range(4)],
-            [html.Tr([html.Td(col) for col in on_ground_country.iloc[idx, :]]) for idx in range(4)],
+            [html.Tr([html.Td(col) for col in top_countries_flying.iloc[idx, :]]) for idx in range(4)],
+            [html.Tr([html.Td(col) for col in top_countries_on_ground.iloc[idx, :]]) for idx in range(4)],
             [html.Tr([html.Td(col) for col in flying_sample.iloc[idx, :]]) for idx in range(4)],
             [html.Tr([html.Td(col) for col in on_ground_sample.iloc[idx, :]]) for idx in range(4)],
         )

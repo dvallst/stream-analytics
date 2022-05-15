@@ -17,7 +17,7 @@ def get_layout():
                     dbc.Col(
                         [
                             html.H4("Streaming Analytics of Flights over Europe"),
-                            html.H6("Source: The OpenSky Network"),
+                            html.H5("Source: The OpenSky Network"),
                         ],
                         width=4,
                     ),
@@ -27,9 +27,20 @@ def get_layout():
                                 html.Thead(
                                     html.Tr(
                                         [
-                                            html.Th("Total aircraft"),
-                                            html.Th("Flying", colSpan=2),
-                                            html.Th("On-ground", colSpan=2),
+                                            html.Th(
+                                                "Total aircraft",
+                                                title="Total aircraft in Europe.",
+                                            ),
+                                            html.Th(
+                                                "Flying",
+                                                title="Aircraft that are flying.",
+                                                colSpan=2,
+                                            ),
+                                            html.Th(
+                                                "On ground",
+                                                title="Aircraft that on ground.",
+                                                colSpan=2,
+                                            ),
                                         ]
                                     )
                                 ),
@@ -78,8 +89,14 @@ def get_layout():
                                             html.Tr(html.Th("Top countries flying", colSpan=2)),
                                             html.Tr(
                                                 [
-                                                    html.Th("Origin country"),
-                                                    html.Th("Total aircraft"),
+                                                    html.Th(
+                                                        "Origin country",
+                                                        title="Country name inferred from the ICAO 24-bit address.",
+                                                    ),
+                                                    html.Th(
+                                                        "Total aircraft",
+                                                        title="Total aircraft that are flying.",
+                                                    ),
                                                 ]
                                             ),
                                         ]
@@ -87,7 +104,7 @@ def get_layout():
                                     html.Tbody(id="live-update-country-flying-table"),
                                 ],
                                 bordered=True,
-                                color="primary",
+                                color="success",
                                 hover=True,
                                 striped=True,
                             ),
@@ -95,11 +112,17 @@ def get_layout():
                                 [
                                     html.Thead(
                                         [
-                                            html.Tr(html.Th("Top countries on-ground", colSpan=2)),
+                                            html.Tr(html.Th("Top countries on ground", colSpan=2)),
                                             html.Tr(
                                                 [
-                                                    html.Th("Origin country"),
-                                                    html.Th("Total aircraft"),
+                                                    html.Th(
+                                                        "Origin country",
+                                                        title="Country name inferred from the ICAO 24-bit address.",
+                                                    ),
+                                                    html.Th(
+                                                        "Total aircraft",
+                                                        title="Total aircraft that are on ground.",
+                                                    ),
                                                 ]
                                             ),
                                         ]
@@ -107,7 +130,7 @@ def get_layout():
                                     html.Tbody(id="live-update-country-on-ground-table"),
                                 ],
                                 bordered=True,
-                                color="secondary",
+                                color="warning",
                                 hover=True,
                                 striped=True,
                             ),
@@ -125,8 +148,8 @@ def get_layout():
                                                 [
                                                     html.Th(
                                                         "Callsign",
-                                                        title="Callsign of the vehicle. Can be null if no callsign has "
-                                                        "been received.",
+                                                        title="Callsign of the vehicle. Can be null if no callsign "
+                                                        "has been received.",
                                                     ),
                                                     html.Th(
                                                         "Origin country",
@@ -138,7 +161,7 @@ def get_layout():
                                                     ),
                                                     html.Th(
                                                         "Velocity",
-                                                        title="Velocity over ground in m/s. Can be null.",
+                                                        title="Velocity over ground in meters/second. Can be null.",
                                                     ),
                                                     html.Th(
                                                         "True track",
@@ -147,8 +170,8 @@ def get_layout():
                                                     ),
                                                     html.Th(
                                                         "Vertical rate",
-                                                        title="Vertical rate in m/s. A positive value indicates that "
-                                                        "the airplane is climbing, a negative value indicates "
+                                                        title="Vertical rate in meters/second. A positive value "
+                                                        "indicates that the airplane is climbing, a negative value "
                                                         "that it descends. Can be null.",
                                                     ),
                                                 ]
@@ -176,8 +199,8 @@ def get_layout():
                                                 [
                                                     html.Th(
                                                         "Callsign",
-                                                        title="Callsign of the vehicle. Can be null if no callsign has "
-                                                        "been received.",
+                                                        title="Callsign of the vehicle. Can be null if no callsign "
+                                                        "has  been received.",
                                                     ),
                                                     html.Th(
                                                         "Origin country",
@@ -192,7 +215,7 @@ def get_layout():
                                                     ),
                                                     html.Th(
                                                         "Squawk",
-                                                        title="The transponder code aka Squawk. Can be null.",
+                                                        title="The transponder code also known as Squawk. Can be null.",
                                                     ),
                                                     html.Th(
                                                         "SPI",
