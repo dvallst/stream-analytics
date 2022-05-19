@@ -43,7 +43,11 @@ def ingest_flights():
     )
 
     top_countries_flying = (
-        flying.groupby("origin_country").size().reset_index(name="count").sort_values("count", ascending=False).head(5)
+        flying.groupby("origin_country")
+        .size()
+        .reset_index(name="count")
+        .sort_values("count", ascending=False)
+        .head(5)
     )
 
     top_countries_on_ground = (

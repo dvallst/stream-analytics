@@ -63,10 +63,18 @@ def get_layout():
                     ),
                     dbc.Col(
                         [
-                            html.Center(html.Label("Turn off Live flights mode to interact with the map")),
+                            html.Center(
+                                html.Label(
+                                    "Turn off Live flights mode to interact with the map"
+                                )
+                            ),
                             daq.BooleanSwitch(id="boolean-switch", on=True),
-                            html.Center(html.Label("Hover any label to see an explanation")),
-                            dcc.Interval(id="interval-component", interval=15000),  # in milliseconds
+                            html.Center(
+                                html.Label("Hover any label to see an explanation")
+                            ),
+                            dcc.Interval(
+                                id="interval-component", interval=15000
+                            ),  # in milliseconds
                         ]
                     ),
                 ]
@@ -86,7 +94,11 @@ def get_layout():
                                 [
                                     html.Thead(
                                         [
-                                            html.Tr(html.Th("Top countries flying", colSpan=2)),
+                                            html.Tr(
+                                                html.Th(
+                                                    "Top countries flying", colSpan=2
+                                                )
+                                            ),
                                             html.Tr(
                                                 [
                                                     html.Th(
@@ -112,7 +124,11 @@ def get_layout():
                                 [
                                     html.Thead(
                                         [
-                                            html.Tr(html.Th("Top countries on ground", colSpan=2)),
+                                            html.Tr(
+                                                html.Th(
+                                                    "Top countries on ground", colSpan=2
+                                                )
+                                            ),
                                             html.Tr(
                                                 [
                                                     html.Th(
@@ -127,7 +143,9 @@ def get_layout():
                                             ),
                                         ]
                                     ),
-                                    html.Tbody(id="live-update-country-on-ground-table"),
+                                    html.Tbody(
+                                        id="live-update-country-on-ground-table"
+                                    ),
                                 ],
                                 bordered=True,
                                 color="warning",
@@ -143,7 +161,11 @@ def get_layout():
                                 [
                                     html.Thead(
                                         [
-                                            html.Tr(html.Th("Flying aircraft sample", colSpan=8)),
+                                            html.Tr(
+                                                html.Th(
+                                                    "Flying aircraft sample", colSpan=8
+                                                )
+                                            ),
                                             html.Tr(
                                                 [
                                                     html.Th(

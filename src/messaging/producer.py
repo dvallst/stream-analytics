@@ -9,7 +9,9 @@ from src.acquisition.open_sky import get_flights
 from src.messaging.config import Config
 
 
-logging.config.fileConfig(os.path.join(os.path.dirname(__file__), "..", "..", "conf", "logging.cfg"))
+logging.config.fileConfig(
+    os.path.join(os.path.dirname(__file__), "..", "..", "conf", "logging.cfg")
+)
 logger = logging.getLogger(__name__)
 
 try:

@@ -18,4 +18,6 @@ class Config:
 
     @staticmethod
     def create_engine():
-        return create_engine(f"postgresql://{Config.USER}:{Config.SECRET}@{Config.HOST}:{Config.PORT}/{Config.DB}")
+        return create_engine(
+            f"postgresql://{Config.USER}:{Config.SECRET}@{Config.HOST}:{Config.PORT}/{Config.DB}"
+        )

@@ -28,7 +28,9 @@ def consume_flights():
 
     flight_states = []
     for message in consumer:
-        logger.info(f"Consuming message {message.offset} from Kafka broker {Config.get_broker()}...")
+        logger.info(
+            f"Consuming message {message.offset} from Kafka broker {Config.get_broker()}..."
+        )
         flight_states = message.value
         break
 

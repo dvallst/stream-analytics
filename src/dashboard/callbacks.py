@@ -7,7 +7,9 @@ from dash.dependencies import Input, Output
 from src.dashboard.plots import create_geo_map
 from src.ingestion.ingest import ingest_flights
 
-logging.config.fileConfig(os.path.join(os.path.dirname(__file__), "..", "..", "conf", "logging.cfg"))
+logging.config.fileConfig(
+    os.path.join(os.path.dirname(__file__), "..", "..", "conf", "logging.cfg")
+)
 logger = logging.getLogger(__name__)
 
 
@@ -60,13 +62,27 @@ def register_callbacks(app):
             flying_per,
             on_ground_tot,
             on_ground_per,
-            [html.Tr([html.Td(col) for col in top_countries_flying.iloc[idx, :]]) for idx in range(4)],
-            [html.Tr([html.Td(col) for col in top_countries_on_ground.iloc[idx, :]]) for idx in range(4)],
-            [html.Tr([html.Td(col) for col in flying_sample.iloc[idx, :]]) for idx in range(4)],
-            [html.Tr([html.Td(col) for col in on_ground_sample.iloc[idx, :]]) for idx in range(4)],
+            [
+                html.Tr([html.Td(col) for col in top_countries_flying.iloc[idx, :]])
+                for idx in range(4)
+            ],
+            [
+                html.Tr([html.Td(col) for col in top_countries_on_ground.iloc[idx, :]])
+                for idx in range(4)
+            ],
+            [
+                html.Tr([html.Td(col) for col in flying_sample.iloc[idx, :]])
+                for idx in range(4)
+            ],
+            [
+                html.Tr([html.Td(col) for col in on_ground_sample.iloc[idx, :]])
+                for idx in range(4)
+            ],
         )
 
-    @app.callback(Output("interval-component", "disabled"), Input("boolean-switch", "on"))
+    @app.callback(
+        Output("interval-component", "disabled"), Input("boolean-switch", "on")
+    )
     def disable_update(on):
         if on:
             logger.info("Enabling dashboard update...")
