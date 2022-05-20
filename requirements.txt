@@ -3,9 +3,9 @@ dash
 dash-bootstrap-components
 dash_daq
 flake8
-python-dotenv
 kafka-python
 pandas
 psycopg2-binary
+python-dotenv
 sqlalchemy
 requests

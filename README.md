@@ -3,8 +3,13 @@
 This project was developed as a master's thesis in BI & Big Data Analytics at the [Universitat Oberta de Catalunya](https://www.uoc.edu) (UOC).
 The topic of the thesis is Streaming Analytics, and this project implements a use case to monitor aircraft flights (events) 
 through a data pipeline.
-The pipeline acquires events from The Open Sky Network API, publishes them to a Kafka topic, consumes them from a Plotly 
-dashboard, and finally stores them in a containerized PostgreSQL database.
+
+The pipeline is made up of the following parts:
+- Acquisition of events from The Open Sky Network API.
+- Messaging that publishes the events in a Kafka topic.
+- Ingestion that consumes the events from Kafka and processes them using Pandas.
+- Near-real-time dashboard showing the calculated metrics.
+- Storage of the events in a containerized PostgreSQL database.
 
 ## Prerequisites
 
@@ -30,10 +35,11 @@ Once Kafka is up and running, follow the steps below to clone the repository:
 `git clone https://github.com/dvallst/stream-analytics.git`
 2. From the root directory of the cloned repository, create a virtual environment:  
 `conda env create -p venv -f bin/local/environment.yml`
+3. Copy the `env_template.cfg` to a new file named `.env`
 
 ## Run
 
-Once the virtual environment is created, run the pipeline with the following steps:
+Once the `.env` file is created, run the pipeline with the following steps:
 
 1. From the `conf/database` subdirectory, run the PostgreSQL container:  
 `docker compose -f docker-compose-postgres.yml up`
