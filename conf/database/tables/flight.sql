@@ -14,9 +14,9 @@ CREATE TABLE sky.flight (
     sensors         BIGINT,
     geo_altitude    DECIMAL(7,2),
     squawk          VARCHAR(10),
-    unknown         BOOLEAN,
-    spi             SMALLINT,
-    position_source SMALLINT
+    spi             BOOLEAN,
+    position_source SMALLINT,
+    unknown         SMALLINT
 );
 
 ALTER TABLE sky.flight OWNER to postgres;

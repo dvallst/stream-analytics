@@ -29,9 +29,9 @@ def save_flights(flights):
         "sensors",
         "geo_altitude",
         "squawk",
-        "unknown",
         "spi",
         "position_source",
+        "unknown",
     ]
     df = df.rename(columns=dict(zip(df.columns, cols)))
 
