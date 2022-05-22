@@ -45,9 +45,9 @@ def save_flights(flights):
             if_exists="append",
             index=False,
         )
-    except Exception as ex:
-        logger.error(ex)
-        raise ex
+    except Exception as exc:
+        logger.error(exc)
+        raise
 
     logger.info(f"{len(df.index)} flights saved to Postgres")
 

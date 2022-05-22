@@ -20,9 +20,9 @@ try:
         bootstrap_servers=Config.get_broker(),
         value_serializer=lambda v: json.dumps(v).encode("utf-8"),
     )
-except Exception as ex:
+except Exception:
     logger.error(f"Is Kafka broker up & running on {Config.get_broker()}?")
-    raise ex
+    raise
 
 logger.info("Kafka broker: " + producer.config["bootstrap_servers"])
 logger.info("Kafka topic: " + Config.TOPIC)

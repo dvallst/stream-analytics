@@ -2,9 +2,9 @@ from src.messaging.consumer import consume_flights
 
 
 def ingest_flights():
-    df = consume_flights()
+    aircraft_df = consume_flights()
 
-    df = df.drop(
+    aircraft_df = aircraft_df.drop(
         columns=[
             "icao24",
             "time_position",
@@ -13,10 +13,10 @@ def ingest_flights():
         ]
     )
 
-    on_ground = df[df.on_ground]
-    flying = df[df.on_ground == False]
+    aircraft_on_ground = aircraft_df[aircraft_df.on_ground]
+    aircraft_flying = aircraft_df[aircraft_df.on_ground == False]
 
-    flying_sample = flying.sample(5).drop(
+    aircraft_flying_sample = aircraft_flying.sample(5).drop(
         columns=[
             "longitude",
             "latitude",
@@ -29,7 +29,7 @@ def ingest_flights():
         ]
     )
 
-    on_ground_sample = on_ground.sample(5).drop(
+    aircraft_on_ground_sample = aircraft_on_ground.sample(5).drop(
         columns=[
             "longitude",
             "latitude",
@@ -42,16 +42,18 @@ def ingest_flights():
         ]
     )
 
+    # The 5 countries with the most aircraft flying
     top_countries_flying = (
-        flying.groupby("origin_country")
+        aircraft_flying.groupby("origin_country")
         .size()
         .reset_index(name="count")
         .sort_values("count", ascending=False)
         .head(5)
     )
 
+    # The 5 countries with the most aircraft on ground
     top_countries_on_ground = (
-        on_ground.groupby("origin_country")
+        aircraft_on_ground.groupby("origin_country")
         .size()
         .reset_index(name="count")
         .sort_values("count", ascending=False)
@@ -59,14 +61,16 @@ def ingest_flights():
     )
 
     return (
-        len(df.index),
-        len(flying.index),
-        f"{round(len(flying.index) / len(df.index) * 100)}%",
-        len(on_ground.index),
-        f"{round(len(on_ground.index) / len(df.index) * 100)}%",
-        flying,
-        flying_sample,
-        on_ground_sample,
+        len(aircraft_df.index),  # Total aircraft in Europe
+        len(aircraft_flying.index),  # Number of aircraft that are flying
+        # Percentage of aircraft that are flying
+        f"{round(len(aircraft_flying.index) / len(aircraft_df.index) * 100)}%",
+        len(aircraft_on_ground.index),  # Number of aircraft that are on ground
+        # Percentage of aircraft that are on ground
+        f"{round(len(aircraft_on_ground.index) / len(aircraft_df.index) * 100)}%",
+        aircraft_flying,
+        aircraft_flying_sample,
+        aircraft_on_ground_sample,
         top_countries_flying,
         top_countries_on_ground,
     )

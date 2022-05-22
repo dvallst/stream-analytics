@@ -38,7 +38,7 @@ def get_layout():
                                             ),
                                             html.Th(
                                                 "On ground",
-                                                title="Aircraft that on ground.",
+                                                title="Aircraft that are on ground.",
                                                 colSpan=2,
                                             ),
                                         ]

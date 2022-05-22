@@ -22,9 +22,9 @@ def consume_flights():
             bootstrap_servers=Config.get_broker(),
             value_deserializer=lambda v: json.loads(v.decode("utf-8")),
         )
-    except Exception as ex:
+    except Exception:
         logger.error(f"Is Kafka broker up & running on {Config.get_broker()}?")
-        raise ex
+        raise
 
     flight_states = []
     for message in consumer:
