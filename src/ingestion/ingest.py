@@ -9,6 +9,7 @@ def ingest_flights():
             "icao24",
             "time_position",
             "last_contact",
+            "sensors",
             "unknown",
         ]
     )
@@ -16,12 +17,11 @@ def ingest_flights():
     aircraft_on_ground = aircraft_df[aircraft_df.on_ground]
     aircraft_flying = aircraft_df[aircraft_df.on_ground == False]
 
-    aircraft_flying_sample = aircraft_flying.sample(5).drop(
+    aircraft_flying_sample = aircraft_flying.sample(4).drop(
         columns=[
             "longitude",
             "latitude",
             "on_ground",
-            "sensors",
             "geo_altitude",
             "squawk",
             "spi",
@@ -29,13 +29,13 @@ def ingest_flights():
         ]
     )
 
-    aircraft_on_ground_sample = aircraft_on_ground.sample(5).drop(
+    aircraft_on_ground_from_spain = aircraft_on_ground[aircraft_on_ground.origin_country == "Spain"]
+    aircraft_on_ground_from_spain_sample = aircraft_on_ground_from_spain.sample(4).drop(
         columns=[
             "longitude",
             "latitude",
             "baro_altitude",
             "on_ground",
-            "velocity",
             "true_track",
             "vertical_rate",
             "geo_altitude",
@@ -70,7 +70,7 @@ def ingest_flights():
         f"{round(len(aircraft_on_ground.index) / len(aircraft_df.index) * 100)}%",
         aircraft_flying,
         aircraft_flying_sample,
-        aircraft_on_ground_sample,
+        aircraft_on_ground_from_spain_sample,
         top_countries_flying,
         top_countries_on_ground,
     )

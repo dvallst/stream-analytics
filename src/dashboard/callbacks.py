@@ -38,7 +38,7 @@ def register_callbacks(app):
             on_ground_per,
             flying,
             flying_sample,
-            on_ground_sample,
+            on_ground_from_spain_sample,
             top_countries_flying,
             top_countries_on_ground,
         ) = ingest_flights()
@@ -64,19 +64,19 @@ def register_callbacks(app):
             on_ground_per,
             [
                 html.Tr([html.Td(col) for col in top_countries_flying.iloc[idx, :]])
-                for idx in range(4)
+                for idx in range(len(top_countries_flying))
             ],
             [
                 html.Tr([html.Td(col) for col in top_countries_on_ground.iloc[idx, :]])
-                for idx in range(4)
+                for idx in range(len(top_countries_on_ground))
             ],
             [
                 html.Tr([html.Td(col) for col in flying_sample.iloc[idx, :]])
-                for idx in range(4)
+                for idx in range(len(flying_sample))
             ],
             [
-                html.Tr([html.Td(col) for col in on_ground_sample.iloc[idx, :]])
-                for idx in range(4)
+                html.Tr([html.Td(col) for col in on_ground_from_spain_sample.iloc[idx, :]])
+                for idx in range(len(on_ground_from_spain_sample.index))
             ],
         )
 

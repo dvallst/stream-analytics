@@ -16,8 +16,8 @@ def get_layout():
                 [
                     dbc.Col(
                         [
-                            html.H4("Streaming Analytics of Flights over Europe"),
-                            html.H5("Source: The OpenSky Network"),
+                            html.H5("Streaming Analytics of Flights over Europe"),
+                            html.H6("Source: The OpenSky Network"),
                         ],
                         width=4,
                     ),
@@ -102,11 +102,11 @@ def get_layout():
                                             html.Tr(
                                                 [
                                                     html.Th(
-                                                        "Origin country",
+                                                        "Origin",
                                                         title="Country name inferred from the ICAO 24-bit address.",
                                                     ),
                                                     html.Th(
-                                                        "Total aircraft",
+                                                        "Total",
                                                         title="Total aircraft that are flying.",
                                                     ),
                                                 ]
@@ -132,11 +132,11 @@ def get_layout():
                                             html.Tr(
                                                 [
                                                     html.Th(
-                                                        "Origin country",
+                                                        "Origin",
                                                         title="Country name inferred from the ICAO 24-bit address.",
                                                     ),
                                                     html.Th(
-                                                        "Total aircraft",
+                                                        "Total",
                                                         title="Total aircraft that are on ground.",
                                                     ),
                                                 ]
@@ -213,7 +213,7 @@ def get_layout():
                                         [
                                             html.Tr(
                                                 html.Th(
-                                                    "On-ground aircraft sample",
+                                                    "Sample of aircraft from Spain staying on ground",
                                                     colSpan=8,
                                                 )
                                             ),
@@ -229,11 +229,8 @@ def get_layout():
                                                         title="Country name inferred from the ICAO 24-bit address.",
                                                     ),
                                                     html.Th(
-                                                        "Sensors",
-                                                        title="Serial numbers of sensors which received messages from "
-                                                        "the vehicle within the validity period of this state "
-                                                        "vector. Is null if no filtering for sensor was used in "
-                                                        "the request.",
+                                                        "Velocity",
+                                                        title="Velocity over ground in meters/second. Can be null.",
                                                     ),
                                                     html.Th(
                                                         "Squawk",
