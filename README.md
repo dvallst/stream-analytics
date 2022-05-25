@@ -13,6 +13,8 @@ The pipeline is made up of the following parts:
 
 ## Prerequisites
 
+### Required software
+
 The following software is required to run the pipeline locally:
 
 - [Git](https://git-scm.com/download)
@@ -22,12 +24,16 @@ The following software is required to run the pipeline locally:
 Recommended guide for macOS: [Apache Kafka Installation on Mac using Homebrew](https://medium.com/@Ankitthakur/apache-kafka-installation-on-mac-using-homebrew-a367cdefd273)
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
+### Start Kafka
+
 Once the required software is installed, follow the steps below to start Kafka (macOS command examples):
 
 1. Start the Zookeeper server.  
 `zookeeper-server-start /opt/homebrew/etc/kafka/zookeeper.properties`
 2. Start the Kafka server:  
 `kafka-server-start /opt/homebrew/etc/kafka/server.properties`
+
+### Clone repository
 
 Once Kafka is up and running, follow the steps below to clone the repository:
 
@@ -48,6 +54,10 @@ It should be something like:
 `conda activate /Users/dvt/stream-analytics/venv`
 3. Run the following Python script:  
 `python -m src.messaging.producer`
-4. Open another terminal, activate the virtual environment (step 2) and run the Python script:
+4. Open another terminal, activate the virtual environment (step 2) and run the Python script:  
 `python -m src.main`
-5. Open a web browser and go to http://127.0.0.1:8050
+5. Open a web browser and go to http://127.0.0.1:8050 to use the dashboard.
+
+## Maintainer
+
+* **David Valls Teixidó** - *Author/Maintainer* - [dvallst@uoc.edu](https://github.com/dvallst)
