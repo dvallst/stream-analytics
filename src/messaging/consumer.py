@@ -4,7 +4,7 @@ import logging
 from kafka import KafkaConsumer
 
 from src.messaging.config import Config
-from src.database.postgres import save_flights
+from src.storage.postgres import save_flights
 
 
 def consume_flights():

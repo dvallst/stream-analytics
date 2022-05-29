@@ -6,7 +6,7 @@ through a data pipeline.
 
 The pipeline is made up of the following parts:
 - Acquisition of events from The Open Sky Network API.
-- Messaging that publishes the events in a Kafka topic.
+w- Messaging that publishes the events in a containerized Kafka topic.
 - Ingestion that consumes the events from Kafka and processes them using Pandas.
 - Near-real-time dashboard showing the calculated metrics.
 - Storage of the events in a containerized PostgreSQL database.

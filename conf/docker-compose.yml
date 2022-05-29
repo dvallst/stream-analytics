@@ -30,8 +30,8 @@ services:
     container_name: pg_stream
     # Add scripts to create the database
     volumes:
-      - ./database/create_db.sql:/docker-entrypoint-initdb.d/create_db.sql
-      - ./database/tables/:/docker-entrypoint-initdb.d/tables/
+      - ./storage/create_db.sql:/docker-entrypoint-initdb.d/create_db.sql
+      - ./storage/tables/:/docker-entrypoint-initdb.d/tables/
     ports:
       - "5432:5432"
     environment:

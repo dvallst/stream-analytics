@@ -1,7 +1,7 @@
 import logging
 import pandas as pd
 
-from src.database.config import Config
+from src.storage.config import Config
 
 
 def save_flights(flights):

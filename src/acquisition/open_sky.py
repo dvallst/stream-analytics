@@ -20,6 +20,8 @@ def get_flights():
         if response.ok:
             # Deserialize string containing JSON document (response.text) to dictionary, and get list of flight states
             flight_states = json.loads(response.text)["states"]
+        else:
+            logger.warning(f"OpenSky error code: {response.status_code}")
     except Exception as exc:
         logger.warning(f"Exception getting flights: {exc}")
 
