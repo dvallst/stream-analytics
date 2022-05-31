@@ -5,8 +5,8 @@ The topic of the thesis is Streaming Analytics, and this project implements a us
 through a data pipeline.
 
 The pipeline is made up of the following parts:
-- Acquisition of events from The Open Sky Network API.
-w- Messaging that publishes the events in a containerized Kafka topic.
+- Acquisition of events from [The Open Sky Network](https://opensky-network.org) API.
+- Messaging that publishes the events in a containerized Kafka topic.
 - Ingestion that consumes the events from Kafka and processes them using Pandas.
 - Near-real-time dashboard showing the calculated metrics.
 - Storage of the events in a containerized PostgreSQL database.
@@ -24,7 +24,7 @@ The following software is required to run the pipeline locally:
 
 ### Clone repository
 
-Once Kafka is up and running, follow the steps below to clone the repository:
+Once the required software is installed, follow the steps below to clone the repository:
 
 1. Clone the Git repository:  
 `git clone https://github.com/dvallst/stream-analytics.git`
@@ -34,16 +34,16 @@ Once Kafka is up and running, follow the steps below to clone the repository:
 
 ## Run
 
-Once the `.env` file is created, run the pipeline with the following steps:
+Once the `.env` file is created and Docker Desktop is running, run the pipeline with the following steps:
 
 1. From the `conf` subdirectory, run the Docker Compose to start Kafka & PostgreSQL:  
 `docker compose up`
-2. Activate the virtual environment with the command shown in the creation step.  
+2. Activate the virtual environment with the command shown in the creation step (step 2).  
 It should be something like:  
 `conda activate /Users/dvt/stream-analytics/venv`
-3. Run the following Python script:  
+3. Run the following Python module:  
 `python -m src.messaging.producer`
-4. Open another terminal, activate the virtual environment (step 2) and run the Python script:  
+4. Open another terminal, activate the virtual environment (step 2) and run the Python module:  
 `python -m src.main`
 5. Open a web browser and go to http://127.0.0.1:8050 to use the dashboard.
 
