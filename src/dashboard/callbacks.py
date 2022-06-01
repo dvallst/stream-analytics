@@ -75,7 +75,9 @@ def register_callbacks(app):
                 for idx in range(len(flying_sample))
             ],
             [
-                html.Tr([html.Td(col) for col in on_ground_from_spain_sample.iloc[idx, :]])
+                html.Tr(
+                    [html.Td(col) for col in on_ground_from_spain_sample.iloc[idx, :]]
+                )
                 for idx in range(len(on_ground_from_spain_sample.index))
             ],
         )

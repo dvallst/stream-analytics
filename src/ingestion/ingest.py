@@ -34,7 +34,9 @@ def ingest_flights():
         ]
     )
 
-    aircraft_on_ground_from_spain = aircraft_on_ground[aircraft_on_ground.origin_country == "Spain"]
+    aircraft_on_ground_from_spain = aircraft_on_ground[
+        aircraft_on_ground.origin_country == "Spain"
+    ]
     aircraft_on_ground_from_spain_sample = aircraft_on_ground_from_spain.sample(4).drop(
         columns=[
             "longitude",
