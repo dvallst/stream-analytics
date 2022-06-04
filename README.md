@@ -41,9 +41,9 @@ Once the `.env` file is created and Docker Desktop is running, run the pipeline 
 2. Activate the virtual environment with the command shown in the creation step (step 2).  
 It should be something like:  
 `conda activate /Users/dvt/stream-analytics/venv`
-3. Run the following Python module:  
+3. From the root directory of the cloned repository, run the following Python module:  
 `python -m src.messaging.producer`
-4. Open another terminal, activate the virtual environment (step 2) and run the Python module:  
+4. Open another terminal, activate the virtual environment (step 2) and from the root directory of the cloned repository, run the Python module:  
 `python -m src.main`
 5. Open a web browser and go to http://127.0.0.1:8050 to use the dashboard.
 
