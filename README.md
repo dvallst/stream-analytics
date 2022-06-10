@@ -2,7 +2,7 @@
 
 This project was developed as a master's thesis in BI & Big Data Analytics at the [Universitat Oberta de Catalunya](https://www.uoc.edu) (UOC).
 The topic of the thesis is Streaming Analytics, and this project implements a use case to monitor aircraft flights (events) 
-through a data pipeline.
+through a stream data pipeline.
 
 The pipeline is made up of the following parts:
 - Acquisition of events from [The Open Sky Network](https://opensky-network.org) API.
@@ -27,9 +27,13 @@ The following software is required to run the pipeline locally:
 Once the required software is installed, follow the steps below to clone the repository:
 
 1. Clone the Git repository:  
-`git clone https://github.com/dvallst/stream-analytics.git`
+```
+git clone https://github.com/dvallst/stream-analytics.git
+```
 2. From the root directory of the cloned repository, create a virtual environment:  
-`conda env create -p venv -f bin/local/environment.yml`
+```
+conda env create -p venv -f bin/local/environment.yml
+```
 3. Copy the `env_template.cfg` to a new file named `.env`
 
 ## Run
@@ -37,14 +41,22 @@ Once the required software is installed, follow the steps below to clone the rep
 Once the `.env` file is created and Docker Desktop is running, run the pipeline with the following steps:
 
 1. From the `conf` subdirectory, run the Docker Compose to start Kafka & PostgreSQL:  
-`docker compose up`
+```
+docker compose up
+```
 2. Activate the virtual environment with the command shown in the creation step (step 2).  
 It should be something like:  
-`conda activate /Users/dvt/stream-analytics/venv`
+```
+conda activate /Users/dvt/stream-analytics/venv
+```
 3. From the root directory of the cloned repository, run the following Python module:  
-`python -m src.messaging.producer`
+```
+python -m src.messaging.producer
+```
 4. Open another terminal, activate the virtual environment (step 2) and from the root directory of the cloned repository, run the Python module:  
-`python -m src.main`
+```
+python -m src.main
+```
 5. Open a web browser and go to http://127.0.0.1:8050 to use the dashboard.
 
 ## Maintainer
