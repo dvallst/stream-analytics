@@ -34,7 +34,7 @@ git clone https://github.com/dvallst/stream-analytics.git
 ```
 conda env create -p venv -f bin/local/environment.yml
 ```
-3. Copy the `env_template.cfg` to a new file named `.env`
+3. From the `conf` subdirectory, copy `env_template.cfg` to a new file named `.env`
 
 ## Run
 
@@ -44,7 +44,7 @@ Once the `.env` file is created and Docker Desktop is running, run the pipeline 
 ```
 docker compose up
 ```
-2. Activate the virtual environment with the command shown in the creation step (step 2).  
+2. Open another terminal, activate the virtual environment with the command shown in the creation step (step 2).  
 It should be something like:  
 ```
 conda activate /Users/dvt/stream-analytics/venv
