@@ -7,9 +7,9 @@ through a stream data pipeline.
 The pipeline is made up of the following parts:
 - Acquisition of events from [The Open Sky Network](https://opensky-network.org) API.
 - Messaging that publishes the events in a containerized Kafka topic.
-- Ingestion that consumes the events from Kafka and processes them using Pandas.
-- Near-real-time dashboard showing the calculated metrics.
 - Storage of the events in a containerized PostgreSQL database.
+- Ingestion that consumes the events from Kafka and processes them using Pandas.
+- Near-real-time dashboard using Plotly Dash that shows the calculated metrics.
 
 ## Prerequisites
 
@@ -30,7 +30,8 @@ Once the required software is installed, follow the steps below to clone the rep
 ```
 git clone https://github.com/dvallst/stream-analytics.git
 ```
-2. From the root directory of the cloned repository, create a virtual environment:  
+2. From the root directory of the cloned repository, create a virtual environment.  
+This step  may take a few seconds:  
 ```
 conda env create -p venv -f bin/local/environment.yml
 ```
