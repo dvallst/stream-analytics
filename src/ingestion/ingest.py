@@ -3,9 +3,9 @@ from src.messaging.consumer import consume_flights
 
 def ingest_flights():
     """
-    Ingest flight states computing metrics
+    Ingest flight states to compute metrics
 
-    :return: Tuple: computed metrics
+    :return: Tuple: Computed metrics
     """
     aircraft_df = consume_flights()
 
