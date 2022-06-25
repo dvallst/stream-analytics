@@ -15,7 +15,6 @@ def ingest_flights():
             "time_position",
             "last_contact",
             "sensors",
-            "unknown",
         ]
     )
 
